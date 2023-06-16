@@ -6,9 +6,14 @@ C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\CanYouC
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\CanYouC#.dll
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\CanYouC#.pdb
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\RestSharp.dll
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\obj\Debug\net6.0\CanYouC#.csproj.AssemblyReference.cache
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\obj\Debug\net6.0\CanYouC#.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\callu\Desktop\The Lab\Job\ow-eye-exam\CanYouC#\obj\Debug\net6.0\CanYouC#.AssemblyInfoInputs.cache

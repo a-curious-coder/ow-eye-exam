@@ -1,6 +1,6 @@
 ﻿namespace CanYouC_.Models
 {
-    public class Schedule
+    public class RawSchedule
     {
         /// <summary>
         /// Entry Number of Entry
@@ -11,5 +11,15 @@
         /// Date the Entry was added
         /// </summary>
         public string EntryDate { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Type of the Entry
+        /// </summary>
+        public string EntryType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Details of the Entry
+        /// </summary>
+        public List<string> EntryText { get; set; } = new List<string>();
     }
 }
