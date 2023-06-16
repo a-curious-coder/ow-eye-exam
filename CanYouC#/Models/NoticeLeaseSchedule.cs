@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CanYouC_.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace CanYouC_.Models
 {
@@ -39,6 +40,10 @@ namespace CanYouC_.Models
         /// </summary>
         public List<string> Notes { get; set; } = new List<string>();
 
+        /// <summary>
+        /// Parses entryText into the NoticeLeaseSchedule object
+        /// </summary>
+        /// <param name="entryText">Raw Schedule's entry text</param>
         public void Parse(List<string> entryText)
         {
             int latestChangeIndex = 0;
@@ -52,8 +57,9 @@ namespace CanYouC_.Models
                     Notes.Add(entryText[i]);
                     continue;
                 }
+
                 // Convert the entryText to an array of strings
-                string[] rawParts = split(entryText[i]).ToArray();
+                string[] rawParts = SplitEntryText(entryText[i]).ToArray();
 
                 // Trim all elements in rawParts to remove excess whitespace
                 for (int j = 0; j < rawParts.Length; j++)
@@ -95,7 +101,7 @@ namespace CanYouC_.Models
                 if (Regex.IsMatch(rawParts[3], @"^[A-Z]{3}[0-9]{5,6}$"))
                 {
                     LesseesTitle += rawParts[3] + "";
-                
+                }
             }
 
             // Trim each value
@@ -110,7 +116,7 @@ namespace CanYouC_.Models
         /// </summary>
         /// <param name="entryText">Raw Schedule Entry Text String</param>
         /// <returns>Array of parts to extract data from for NoticeLease object variables</returns>
-        public string[] split(string entryText)
+        private static string[] SplitEntryText(string entryText)
         {
             string[] splitData = new string[] { "", "", "", "" };
             // NOTE: I initially thought this was about spacing. However, I noticed each group of text within any given string always started at the same point bar NOTES

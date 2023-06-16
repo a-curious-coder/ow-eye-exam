@@ -1,4 +1,6 @@
-﻿namespace CanYouC_.Models
+﻿using CanYouC_.Interfaces;
+
+namespace CanYouC_.Models
 {
     public class RawSchedule
     {

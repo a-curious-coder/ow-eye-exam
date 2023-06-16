@@ -1,18 +1,16 @@
-﻿using CanYouC_.Models;
-using Microsoft.AspNetCore.Http;
+﻿using CanYouC_.Interfaces;
+using CanYouC_.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RestSharp;
-using System.Text.Json;
 using System.Text;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 using JsonException = System.Text.Json.JsonException;
 
 namespace CanYouC_.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NoticeLeaseController : ControllerBase
+    public class NoticeLeaseController : INoticeLeaseController
     {
         private readonly RestClient _client;
         public NoticeLeaseController()
@@ -21,7 +19,10 @@ namespace CanYouC_.Controllers
             _client = new RestClient("https://localhost:7203");
         }
 
-        // Add description
+        /// <summary>
+        /// Get a list of NoticeLeaseSchedule objects from the API
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetNoticeLeaseSchedules", Name = "GetNoticeLeaseSchedules")]
         public IEnumerable<NoticeLeaseSchedule> GetNoticeLeases()
         {
@@ -57,9 +58,12 @@ namespace CanYouC_.Controllers
             return noticeLeaseSchedules;
         }
 
-        // GET: api/<NoticeLeaseController>
+        /// <summary>
+        /// Get's NoticeLeaseSchedules from processed raw schedule data
+        /// </summary>
+        /// <returns>Enumerated list of NoticeLeaseSchedule objects</returns>
         [HttpGet("GetNoticeLeaseSchedulesFromRawScheduleData", Name = "GetNoticeLeaseSchedulesFromRawScheduleData")]
-        public IEnumerable<NoticeLeaseSchedule> GetNoticeLeaseFromRaw()
+        public IEnumerable<NoticeLeaseSchedule> GetNoticeLeaseFromRawSchedules()
         {
             List<RawSchedule> rawSchedules = new();
             // Create GET request to /schedules using RestSharp
@@ -95,10 +99,11 @@ namespace CanYouC_.Controllers
 
             for(int i = 0; i < rawSchedules.Count; i++)
             {
+                // NOTE: This check is performed to allow for scalability; if the program is expanded to process other types of schedules, this check will allow for that
                 // Only process schedules of type "SCHEDULE OF NOTICES OF LEASES"
                 if (rawSchedules[i].EntryType.ToUpper() == "SCHEDULE OF NOTICES OF LEASES")
                 {
-                    noticeLeaseSchedules.Add(processRawData(rawSchedules[i]));
+                    noticeLeaseSchedules.Add(ProcessRawData(rawSchedules[i]));
                 }
             }
 
@@ -109,14 +114,25 @@ namespace CanYouC_.Controllers
             return noticeLeaseSchedules;
         }
 
-        private RestRequest CreateGet(string name)
+        /// <summary>
+        /// Create's the GET request for the API
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>RestSharp request designed to call external API</returns>
+        private static RestRequest CreateGet(string name)
         {
             var request = new RestRequest(name);
+            // TODO: Add credentials to config file
             request.AddHeader("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("testy:mcTestFace")));
             return request;
         }
 
-        private NoticeLeaseSchedule processRawData(RawSchedule rawSchedule)
+        /// <summary>
+        /// Processes raw schedule entry text data into a NoticeLeaseSchedule object
+        /// </summary>
+        /// <param name="rawSchedule"></param>
+        /// <returns></returns>
+        private static NoticeLeaseSchedule ProcessRawData(RawSchedule rawSchedule)
         {
             NoticeLeaseSchedule noticeLease = new()
             {
@@ -126,38 +142,7 @@ namespace CanYouC_.Controllers
             };
 
             noticeLease.Parse(rawSchedule.EntryText);
-            //{
-            //   "entryNumber":"2",
-            //   "entryDate":"",
-            //   "entryType":"Schedule of Notices of Leases",
-            //   "entryText":[
-            //      "15.11.2018      Ground Floor Premises         10.10.2018      TGL513556  ",
-            //      "Edged and                                     from 10                    ",
-            //      "numbered 2 in                                 October 2018               ",
-            //      "blue (part of)                                to and                     ",
-            //      "including 19               ",
-            //      "April 2028"
-            //   ]
-            //}
 
-            //{
-            //  "entryNumber": 0,
-            //  "entryDate": {
-            //                  "year": 0,
-            //    "month": 0,
-            //    "day": 0,
-            //    "dayOfWeek": 0,
-            //    "dayOfYear": 0,
-            //    "dayNumber": 0
-            //  },
-            //  "registrationDateAndPlanRef": "string",
-            //  "propertyDescription": "string",
-            //  "dateOfLeaseAndTerm": "string",
-            //  "lesseesTitle": "string",
-            //  "notes": [
-            //    "string"
-            //  ]
-            //}
             return noticeLease;
         }
     }

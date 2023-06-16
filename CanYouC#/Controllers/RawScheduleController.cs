@@ -3,16 +3,17 @@ using RestSharp;
 using CanYouC_.Models;
 using Newtonsoft.Json;
 using System.Text;
+using CanYouC_.Interfaces;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CanYouC_.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ScheduleController : ControllerBase
+    public class RawScheduleController : IRawScheduleController
     {
         private readonly RestClient _client;
-        public ScheduleController()
+        public RawScheduleController()
         {
             // TODO: read base URL from config file
             _client = new RestClient("https://localhost:7203");
@@ -20,7 +21,7 @@ namespace CanYouC_.Controllers
 
         // GET: api/<ScheduleController>
         [HttpGet(Name = "GetRawSchedules")]
-        public IEnumerable<RawSchedule> Get()
+        public IEnumerable<RawSchedule> GetRawSchedules()
         {
             List<RawSchedule> rawSchedules = new();
             // Perform GET request to /schedules using RestSharp
